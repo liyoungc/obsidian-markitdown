@@ -1,9 +1,9 @@
 {
-	"id": "obsidian-markitdown",
+	"id": "markitdown",
 	"name": "Markitdown File Converter",
 	"version": "1.0.2",
 	"minAppVersion": "0.15.0",
-	"description": "Convert various file formats to Markdown using Microsoft's Markitdown library",
+	"description": "Convert PDFs, Office documents, images, and other file formats to Markdown using Microsoft's Markitdown tool",
 	"author": "Ethan Troy",
 	"authorUrl": "https://github.com/ethanolivertroy",
 	"isDesktopOnly": true

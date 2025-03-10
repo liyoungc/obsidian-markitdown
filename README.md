@@ -1,6 +1,6 @@
-# Obsidian Markitdown Plugin
+# Markitdown File Converter
 
-This plugin integrates Microsoft's [Markitdown](https://github.com/microsoft/markitdown) tool with Obsidian, allowing you to convert various file formats to Markdown for use with your vault.
+Integrate Microsoft's [Markitdown](https://github.com/microsoft/markitdown) tool to convert various file formats to Markdown for your vault.
 
 ## Features
 
@@ -84,7 +84,7 @@ This plugin acts as a bridge between Obsidian and Microsoft's Markitdown Python 
 
 ## Manually installing the plugin
 
-- Copy over `main.js`, `styles.css`, `manifest.json` to your vault `VaultFolder/.obsidian/plugins/obsidian-markitdown/`
+- Copy over `main.js`, `styles.css`, `manifest.json` to your vault `VaultFolder/.obsidian/plugins/markitdown/`
 
 ## Credits
 
