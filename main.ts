@@ -127,34 +127,31 @@ export default class MarkitdownPlugin extends Plugin {
 
 	async convertFile(filePath: string, outputPath: string): Promise<string> {
 		return new Promise((resolve, reject) => {
-			// Build a command that matches the expected Markitdown syntax
-			let command = `${this.settings.pythonPath} -m markitdown`;
-			
-			// Add options based on settings
-			if (this.settings.enablePlugins) {
-				command += ' --use-plugins';
-			}
-			
-			if (this.settings.docintelEndpoint) {
-				command += ` -d -e "${this.settings.docintelEndpoint}"`;
-			}
-			
-			// Add input file and output options using the correct syntax
-			// Use proper quoting around file paths to handle spaces
-			command += ` "${filePath}" -o "${outputPath}"`;
+			// Build a command that uses the markitdown CLI syntax
+			// According to the error message, markitdown just takes a filename as argument
+			let command = `markitdown "${filePath}" > "${outputPath}"`;
 			
 			// Execute as a shell command
 			exec(command, (error, stdout, stderr) => {
 				if (error) {
-					// Try alternative approach using pipes if the first method fails
-					const pipeCommand = `cat "${filePath}" | ${this.settings.pythonPath} -m markitdown > "${outputPath}"`;
+					// Try alternative approach with Python module if the first method fails
+					const moduleCommand = `${this.settings.pythonPath} -c "from markitdown import convert; convert('${filePath}', output_file='${outputPath}')"`;
 					
-					exec(pipeCommand, (pipeError, pipeStdout, pipeStderr) => {
-						if (pipeError) {
-							reject(new Error(`Markitdown failed to convert the file: ${pipeError.message}\n${pipeStderr}`));
+					exec(moduleCommand, (moduleError, moduleStdout, moduleStderr) => {
+						if (moduleError) {
+							// One last attempt with just a basic command
+							const basicCommand = `${this.settings.pythonPath} -m markitdown "${filePath}" > "${outputPath}"`;
+							
+							exec(basicCommand, (basicError, basicStdout, basicStderr) => {
+								if (basicError) {
+									reject(new Error(`Markitdown failed to convert the file: ${basicError.message}\n${basicStderr}`));
+									return;
+								}
+								resolve(basicStdout);
+							});
 							return;
 						}
-						resolve(pipeStdout);
+						resolve(moduleStdout);
 					});
 					return;
 				}
