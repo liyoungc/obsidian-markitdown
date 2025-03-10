@@ -127,44 +127,38 @@ export default class MarkitdownPlugin extends Plugin {
 
 	async convertFile(filePath: string, outputPath: string): Promise<string> {
 		return new Promise((resolve, reject) => {
-			// Prepare command arguments
-			let args = ['-m', 'markitdown'];
+			// Build a command that matches the expected Markitdown syntax
+			let command = `${this.settings.pythonPath} -m markitdown`;
 			
 			// Add options based on settings
 			if (this.settings.enablePlugins) {
-				args.push('--use-plugins');
+				command += ' --use-plugins';
 			}
 			
 			if (this.settings.docintelEndpoint) {
-				args.push('-d');
-				args.push('-e');
-				args.push(this.settings.docintelEndpoint);
+				command += ` -d -e "${this.settings.docintelEndpoint}"`;
 			}
 			
-			// Add input file and output options
-			args.push(filePath);
-			args.push('-o');
-			args.push(outputPath);
+			// Add input file and output options using the correct syntax
+			// Use proper quoting around file paths to handle spaces
+			command += ` "${filePath}" -o "${outputPath}"`;
 			
-			const process = spawn(this.settings.pythonPath, args);
-			
-			let stdout = '';
-			let stderr = '';
-			
-			process.stdout.on('data', (data) => {
-				stdout += data.toString();
-			});
-			
-			process.stderr.on('data', (data) => {
-				stderr += data.toString();
-			});
-			
-			process.on('close', (code) => {
-				if (code === 0) {
-					resolve(stdout);
-				} else {
-					reject(new Error(`Markitdown exited with code ${code}: ${stderr}`));
+			// Execute as a shell command
+			exec(command, (error, stdout, stderr) => {
+				if (error) {
+					// Try alternative approach using pipes if the first method fails
+					const pipeCommand = `cat "${filePath}" | ${this.settings.pythonPath} -m markitdown > "${outputPath}"`;
+					
+					exec(pipeCommand, (pipeError, pipeStdout, pipeStderr) => {
+						if (pipeError) {
+							reject(new Error(`Markitdown failed to convert the file: ${pipeError.message}\n${pipeStderr}`));
+							return;
+						}
+						resolve(pipeStdout);
+					});
+					return;
 				}
+				resolve(stdout);
 			});
 		});
 	}
