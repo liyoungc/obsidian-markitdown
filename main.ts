@@ -11,12 +11,21 @@ import {
 	TFolder, 
 	normalizePath,
 	FileSystemAdapter,
-	requestUrl
+	requestUrl,
+	WorkspaceLeaf
 } from 'obsidian';
 import { spawn } from 'child_process';
 import * as fs from 'fs';
 import * as path from 'path';
 import { exec } from 'child_process';
+
+// Add type for the app with setting property
+interface AppWithSetting extends App {
+	setting: {
+		open: () => void;
+		openTabById: (id: string) => void;
+	}
+}
 
 interface MarkitdownSettings {
 	pythonPath: string;
@@ -197,10 +206,11 @@ class MarkitdownFileModal extends Modal {
 			
 			buttonEl.addEventListener('click', () => {
 				this.close();
-				// Open settings
+				// Open settings with proper typing
 				if ('setting' in this.app) {
-					(this.app as any).setting.open();
-					(this.app as any).setting.openTabById('obsidian-markitdown');
+					const appWithSetting = this.app as AppWithSetting;
+					appWithSetting.setting.open();
+					appWithSetting.setting.openTabById('obsidian-markitdown');
 				}
 			});
 			
@@ -221,9 +231,6 @@ class MarkitdownFileModal extends Modal {
 		
 		// Create convert button
 		const buttonContainer = contentEl.createDiv('markitdown-button-container');
-		buttonContainer.style.display = 'flex';
-		buttonContainer.style.justifyContent = 'flex-end';
-		buttonContainer.style.marginTop = '20px';
 		
 		const convertButton = buttonContainer.createEl('button', {
 			text: 'Convert'
@@ -333,10 +340,11 @@ class MarkitdownFolderModal extends Modal {
 			
 			buttonEl.addEventListener('click', () => {
 				this.close();
-				// Open settings
+				// Open settings with proper typing
 				if ('setting' in this.app) {
-					(this.app as any).setting.open();
-					(this.app as any).setting.openTabById('obsidian-markitdown');
+					const appWithSetting = this.app as AppWithSetting;
+					appWithSetting.setting.open();
+					appWithSetting.setting.openTabById('obsidian-markitdown');
 				}
 			});
 			
@@ -409,9 +417,6 @@ class MarkitdownFolderModal extends Modal {
 		
 		// Create convert button
 		const buttonContainer = contentEl.createDiv('markitdown-button-container');
-		buttonContainer.style.display = 'flex';
-		buttonContainer.style.justifyContent = 'flex-end';
-		buttonContainer.style.marginTop = '20px';
 		
 		const convertButton = buttonContainer.createEl('button', {
 			text: 'Convert'
@@ -542,10 +547,11 @@ class MarkitdownSetupModal extends Modal {
 			
 			buttonEl.addEventListener('click', () => {
 				this.close();
-				// Open settings
+				// Open settings with proper typing
 				if ('setting' in this.app) {
-					(this.app as any).setting.open();
-					(this.app as any).setting.openTabById('obsidian-markitdown');
+					const appWithSetting = this.app as AppWithSetting;
+					appWithSetting.setting.open();
+					appWithSetting.setting.openTabById('obsidian-markitdown');
 				}
 			});
 			
@@ -561,10 +567,6 @@ class MarkitdownSetupModal extends Modal {
 		});
 		
 		const buttonContainer = contentEl.createDiv('markitdown-button-container');
-		buttonContainer.style.display = 'flex';
-		buttonContainer.style.justifyContent = 'flex-end';
-		buttonContainer.style.gap = '10px';
-		buttonContainer.style.marginTop = '20px';
 		
 		const cancelButton = buttonContainer.createEl('button', {
 			text: 'Cancel'
