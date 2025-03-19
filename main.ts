@@ -193,7 +193,7 @@ class MarkitdownFileModal extends Modal {
 	onOpen() {
 		const {contentEl} = this;
 		contentEl.addClass('markitdown-modal');
-		contentEl.createEl('h2', {text: 'Convert File to Markdown'});
+		contentEl.createEl('h2', {text: 'Convert file to markdown'});
 		
 		if (!this.plugin.markitdownInstalled) {
 			contentEl.createEl('p', {
@@ -201,7 +201,7 @@ class MarkitdownFileModal extends Modal {
 			});
 			
 			const buttonEl = contentEl.createEl('button', {
-				text: 'Go to Settings'
+				text: 'Go to settings'
 			});
 			
 			buttonEl.addEventListener('click', () => {
@@ -327,7 +327,7 @@ class MarkitdownFolderModal extends Modal {
 	onOpen() {
 		const {contentEl} = this;
 		contentEl.addClass('markitdown-modal');
-		contentEl.createEl('h2', {text: 'Convert Folder Contents to Markdown'});
+		contentEl.createEl('h2', {text: 'Convert folder contents to markdown'});
 		
 		if (!this.plugin.markitdownInstalled) {
 			contentEl.createEl('p', {
@@ -335,7 +335,7 @@ class MarkitdownFolderModal extends Modal {
 			});
 			
 			const buttonEl = contentEl.createEl('button', {
-				text: 'Go to Settings'
+				text: 'Go to settings'
 			});
 			
 			buttonEl.addEventListener('click', () => {
@@ -368,15 +368,15 @@ class MarkitdownFolderModal extends Modal {
 		contentEl.createEl('p', {text: 'Select file types to convert:'});
 		
 		const extensions = [
-			{name: 'PDF Files', ext: '.pdf'},
-			{name: 'Word Documents', ext: '.docx'},
-			{name: 'PowerPoint Presentations', ext: '.pptx'},
-			{name: 'Excel Spreadsheets', ext: '.xlsx,.xls'},
-			{name: 'Web Pages', ext: '.html,.htm'},
-			{name: 'Text Files', ext: '.txt'},
-			{name: 'Data Files', ext: '.csv,.json,.xml'},
+			{name: 'PDF files', ext: '.pdf'},
+			{name: 'Word documents', ext: '.docx'},
+			{name: 'PowerPoint presentations', ext: '.pptx'},
+			{name: 'Excel spreadsheets', ext: '.xlsx,.xls'},
+			{name: 'Web pages', ext: '.html,.htm'},
+			{name: 'Text files', ext: '.txt'},
+			{name: 'Data files', ext: '.csv,.json,.xml'},
 			{name: 'Images', ext: '.jpg,.jpeg,.png,.gif'},
-			{name: 'Audio Files', ext: '.wav,.mp3'},
+			{name: 'Audio files', ext: '.wav,.mp3'},
 			{name: 'Archives', ext: '.zip'}
 		];
 		
@@ -542,7 +542,7 @@ class MarkitdownSetupModal extends Modal {
 			});
 			
 			const buttonEl = contentEl.createEl('button', {
-				text: 'Go to Settings'
+				text: 'Go to settings'
 			});
 			
 			buttonEl.addEventListener('click', () => {
@@ -627,11 +627,9 @@ class MarkitdownSettingTab extends PluginSettingTab {
 
 		containerEl.empty();
 
-		containerEl.createEl('h2', {text: 'Markitdown Settings'});
-
 		new Setting(containerEl)
-			.setName('Python Path')
-			.setDesc('Path to Python executable (e.g., python, python3, or full path)')
+			.setName('Python path')
+			.setDesc('Path to python executable (e.g., python, python3, or full path)')
 			.addText(text => text
 				.setPlaceholder('python')
 				.setValue(this.plugin.settings.pythonPath)
@@ -642,8 +640,8 @@ class MarkitdownSettingTab extends PluginSettingTab {
 				}));
 
 		new Setting(containerEl)
-			.setName('Enable Markitdown Plugins')
-			.setDesc('Enable third-party plugins for Markitdown')
+			.setName('Enable Markitdown plugins')
+			.setDesc('Enable third-party plugins for markitdown')
 			.addToggle(toggle => toggle
 				.setValue(this.plugin.settings.enablePlugins)
 				.onChange(async (value) => {
@@ -652,7 +650,7 @@ class MarkitdownSettingTab extends PluginSettingTab {
 				}));
 
 		new Setting(containerEl)
-			.setName('Azure Document Intelligence Endpoint')
+			.setName('Azure Document Intelligence endpoint')
 			.setDesc('Optional: Use Azure Document Intelligence for better conversion (requires API key setup)')
 			.addText(text => text
 				.setPlaceholder('https://your-resource.cognitiveservices.azure.com/')
@@ -663,7 +661,7 @@ class MarkitdownSettingTab extends PluginSettingTab {
 				}));
 
 		new Setting(containerEl)
-			.setName('Output Folder')
+			.setName('Output folder')
 			.setDesc('Folder path for converted files (relative to vault root, leave empty for default "markitdown-output")')
 			.addText(text => text
 				.setPlaceholder('markitdown-output')
@@ -674,7 +672,9 @@ class MarkitdownSettingTab extends PluginSettingTab {
 				}));
 
 		// Status section
-		containerEl.createEl('h3', {text: 'Status'});
+		new Setting(containerEl)
+			.setName('Status')
+			.setHeading();
 		
 		const statusContainer = containerEl.createDiv('markitdown-status-container');
 		
