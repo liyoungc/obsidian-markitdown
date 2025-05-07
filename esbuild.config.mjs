@@ -1,6 +1,7 @@
+// esbuild.config.mjs
 import esbuild from "esbuild";
 import process from "process";
-import builtins from "builtin-modules";
+// import builtins from "builtin-modules"; // Only if you were using it explicitly
 
 const banner =
 `/*
@@ -11,39 +12,44 @@ if you want to view the source, please visit the github repository of this plugi
 
 const prod = (process.argv[2] === "production");
 
-const context = await esbuild.context({
-	banner: {
-		js: banner,
-	},
-	entryPoints: ["main.ts"],
-	bundle: true,
-	external: [
-		"obsidian",
-		"electron",
-		"@codemirror/autocomplete",
-		"@codemirror/collab",
-		"@codemirror/commands",
-		"@codemirror/language",
-		"@codemirror/lint",
-		"@codemirror/search",
-		"@codemirror/state",
-		"@codemirror/view",
-		"@lezer/common",
-		"@lezer/highlight",
-		"@lezer/lr",
-		...builtins],
-	format: "cjs",
-	target: "es2018",
-	logLevel: "info",
-	sourcemap: prod ? false : "inline",
-	treeShaking: true,
-	outfile: "main.js",
-	minify: prod,
-});
+// Define your build options in an object
+const buildOptions = {
+    banner: {
+        js: banner,
+    },
+    entryPoints: ["main.ts"],
+    bundle: true,
+    external: [
+        "obsidian",
+        "electron",
+        "@codemirror/autocomplete", "@codemirror/collab", "@codemirror/commands",
+        "@codemirror/language", "@codemirror/lint", "@codemirror/search",
+        "@codemirror/state", "@codemirror/view", "@lezer/common", "@lezer/highlight",
+        "@lezer/lr",
+        // Node built-ins are generally handled by platform: 'node'
+    ],
+    format: "cjs",
+    platform: "node", // This should help with the "node:fs/promises" errors
+    target: "es2018", 
+    logLevel: "info",
+    sourcemap: prod ? false : "inline",
+    treeShaking: true,
+    outfile: "main.js",
+};
 
-if (prod) {
-	await context.rebuild();
-	process.exit(0);
+// Use esbuild.context() for watch mode
+if (!prod) {
+    esbuild.context(buildOptions).then(ctx => {
+        console.log("esbuild is watching for changes...");
+        ctx.watch();
+    }).catch(failure => {
+        console.error("esbuild watch failed:", failure);
+        process.exit(1);
+    });
 } else {
-	await context.watch();
+    // For production build, just use esbuild.build()
+    esbuild.build(buildOptions).catch(failure => {
+        console.error("esbuild production build failed:", failure);
+        process.exit(1);
+    });
 }
