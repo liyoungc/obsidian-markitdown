@@ -1,10 +1,10 @@
 {
 	"id": "markitdown",
-	"name": "Markitdown File Converter",
+	"name": "Markitdown Monitoring",
 	"version": "1.0.2",
 	"minAppVersion": "0.15.0",
-	"description": "Convert PDFs, Office documents, images, and other file formats to Markdown using Microsoft's Markitdown tool",
-	"author": "Ethan Troy",
-	"authorUrl": "https://github.com/ethanolivertroy",
+	"description": "Monitor external files and automatically convert supported formats to Markdown using Microsoft's Markitdown tool.",
+	"author": "LY Chen",
+	"authorUrl": "https://github.com/liyoungc",
 	"isDesktopOnly": true
 }

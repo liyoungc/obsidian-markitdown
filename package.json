@@ -1,7 +1,7 @@
 {
-	"name": "obsidian-markitdown",
+	"name": "obsidian-markitdown-monitoring",
 	"version": "1.0.1",
-	"description": "Convert various file formats to Markdown using Microsoft's Markitdown library",
+	"description": "Monitor external files and automatically convert supported formats to Markdown using Microsoft's Markitdown library.",
 	"main": "main.js",
 	"scripts": {
 		"dev": "node esbuild.config.mjs",
