@@ -1,97 +1,97 @@
-# Markitdown File Converter
+# Markitdown-Obsidian
 
-Integrate Microsoft's [Markitdown](https://github.com/microsoft/markitdown) tool to convert various file formats to Markdown for your vault.
+A plugin for [Obsidian](https://obsidian.md) that automatically converts various file types to Markdown using the [markitdown](https://github.com/lyc8503/markitdown) library.
 
 ## Features
 
-- Convert various file formats to Markdown:
-  - PDF
-  - PowerPoint (PPTX)
-  - Word (DOCX)
-  - Excel (XLSX, XLS)
-  - Images (with EXIF metadata and OCR)
-  - Audio (with EXIF metadata and speech transcription)
-  - HTML
-  - Text-based formats (CSV, JSON, XML)
-  - ZIP files
-  - Youtube URLs
-  - And more!
-
-- Convert individual files or entire folders at once
-- Easy installation of the Markitdown Python package directly from the plugin
-- Optional use of Azure Document Intelligence for improved conversion quality
-- Support for third-party Markitdown plugins
-
-## Installation
-
-1. Install the plugin from the Obsidian Community Plugins browser
-2. Enable the plugin in Obsidian's settings
-3. The plugin will guide you through installing the Markitdown Python package
+- Automatically converts files to Markdown when they are added to your vault
+- Supports conversion of:
+  - PDF files
+  - Word documents (.doc, .docx)
+  - Excel spreadsheets (.xls, .xlsx)
+  - PowerPoint presentations (.ppt, .pptx)
+  - Text files (.txt)
+  - HTML files (.html, .htm)
+  - RTF files (.rtf)
+  - ODT files (.odt)
+  - ODS files (.ods)
+  - ODP files (.odp)
+- Configurable output directory
+- Configurable file type monitoring
+- Configurable Python path
+- Configurable conversion options
 
 ## Requirements
 
-- Obsidian v0.15.0 or higher
-- Python 3.7 or higher installed on your system
-- Internet connection for initial Markitdown installation
+- Python 3.8 or higher
+- markitdown package (`pip install markitdown`)
+- Obsidian desktop app
 
-## Usage
+### Checking Python Path
 
-### Converting a single file
+Before installing the markitdown package, make sure you're using the correct Python installation:
 
-1. Click the "Convert to Markdown with Markitdown" ribbon icon in the left sidebar, or use the command palette to run "Convert file to Markdown with Markitdown"
-2. Select the file you want to convert
-3. Click the "Convert" button
-4. The converted Markdown file will be saved in your specified output folder and automatically opened
+1. Open Terminal/Command Prompt
+2. Run `which python` (Unix/Mac) or `where python` (Windows) to find your Python path
+3. Use the full path when installing markitdown:
+   ```bash
+   /path/to/your/python -m pip install markitdown
+   ```
+4. Copy this path to the plugin's "Python Path" setting
 
-### Converting multiple files in a folder
+## Installation
 
-1. Use the command palette to run "Convert folder contents to Markdown with Markitdown"
-2. Select the folder containing the files you want to convert
-3. Check the file types you want to include in the conversion
-4. Click the "Convert" button
-5. The converted Markdown files will be saved in your specified output folder
+1. Install the markitdown package:
+   ```bash
+   pip install markitdown
+   ```
+
+2. Install this plugin in Obsidian:
+   - Open Obsidian Settings
+   - Go to Community Plugins
+   - Click "Browse"
+   - Search for "Markitdown"
+   - Click Install
+   - Enable the plugin
 
 ## Configuration
 
-The plugin settings can be found in the Obsidian settings panel under "Markitdown":
+1. Open Obsidian Settings
+2. Go to Community Plugins > Markitdown
+3. Configure the following settings:
+   - Python Path: Path to your Python executable
+   - Output Directory: Directory where converted files will be saved
+   - Monitored File Types: Select which file types to monitor (PDF, Word, Excel, PowerPoint, etc.)
+   - Enable Plugins: Enable additional conversion features
+   - Azure Document Intelligence Endpoint: Endpoint URL for Azure Document Intelligence (optional)
+   - Azure Document Intelligence Key: API key for Azure Document Intelligence (optional)
 
-- **Python Path**: Specify the path to your Python executable (default: "python")
-- **Enable Markitdown Plugins**: Toggle to enable third-party Markitdown plugins
-- **Azure Document Intelligence Endpoint**: Optionally add an Azure Document Intelligence endpoint for improved conversion quality
-- **Output Folder**: Specify where the converted Markdown files should be saved (relative to vault root, default: "markitdown-output")
+## Usage
 
-## How it works
-
-This plugin acts as a bridge between Obsidian and Microsoft's Markitdown Python library. When you convert a file:
-
-1. The plugin passes the file to the Markitdown Python library
-2. Markitdown processes the file and extracts its content and structure
-3. The content is converted to well-formatted Markdown
-4. The resulting Markdown is saved as a new file in your Obsidian vault
+1. Add files to your vault
+2. The plugin will automatically convert them to Markdown
+3. Converted files will be saved in the configured output directory
 
 ## Troubleshooting
 
-- **Python not found**: Make sure Python is installed on your system and the path is correctly set in the plugin settings
-- **Conversion errors**: Check the console for error messages by pressing Ctrl+Shift+I (or Cmd+Opt+I on Mac)
-- **Missing dependencies**: Some file formats may require additional Python dependencies. The plugin will try to install these automatically, but you may need to install them manually
+If you encounter any issues:
 
-## Development
+1. Check that Python is installed and accessible
+2. Verify that the markitdown package is installed
+3. Check the plugin settings
+4. Check the Obsidian console for error messages
 
-- Clone this repo
-- Make sure your NodeJS is at least v16 (`node --version`)
-- `npm i` or `yarn` to install dependencies
-- `npm run dev` to start compilation in watch mode
+## Contributing
 
-## Manually installing the plugin
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-- Copy over `main.js`, `styles.css`, `manifest.json` to your vault `VaultFolder/.obsidian/plugins/markitdown/`
+### Credits and Acknowledgments
 
-## Credits
-
-- This plugin integrates [Microsoft's Markitdown](https://github.com/microsoft/markitdown) Python library
+- This plugin is a fork of [ethanolivertroy's obsidian-markitdown](https://github.com/ethanolivertroy/obsidian-markitdown) plugin
+- Special thanks to [ethanolivertroy](https://github.com/ethanolivertroy) for creating the original Obsidian plugin
+- Built on top of [Microsoft's markitdown](https://github.com/microsoft/markitdown) library, which provides the core file conversion functionality
 - Built on the [Obsidian Plugin System](https://github.com/obsidianmd/obsidian-api)
-- Created by Ethan Troy
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE) - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the LICENSE file for details.

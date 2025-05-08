@@ -1,0 +1,51 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# TypeScript files
+*.ts text
+*.tsx text
+
+# JavaScript files
+*.js text
+*.jsx text
+
+# JSON files
+*.json text
+
+# Markdown files
+*.md text diff=markdown
+
+# Python files
+*.py text diff=python
+
+# Documentation
+*.txt text
+*.rst text
+LICENSE text
+
+# Configs
+*.yml text
+*.yaml text
+*.toml text
+*.ini text
+*.config text
+
+# Graphics
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svg text
+
+# Build files
+*.min.js binary
+*.min.css binary
+
+# Dependencies
+package-lock.json binary
+yarn.lock binary
+
+# OS generated files
+.DS_Store binary
+Thumbs.db binary 

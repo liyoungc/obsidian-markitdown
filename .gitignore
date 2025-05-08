@@ -1,9 +1,60 @@
-# vscode
-.vscode 
+# Development
+node_modules/
+dist/
+build/
+.eslintcache
+*.log
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Build output
+*.js
+!jest.config.js
+*.d.ts
+
+# Testing
+coverage/
+.nyc_output/
+
+# Temporary files
+*.tmp
+*.temp
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+ENV/
+
+# Obsidian
+.obsidian/workspace
+.obsidian/workspace.json
+.obsidian/plugins/*/data.json
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local development
+.local/
 
 # Intellij
 *.iml
-.idea
 
 # npm
 node_modules
@@ -26,3 +77,6 @@ release/
 clean-release/
 *.zip
 test-extract/
+
+# Project snapshots
+project_snapshot.md
